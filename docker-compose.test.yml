@@ -1,0 +1,43 @@
+version: '2'
+services:
+
+  server:
+    extends:
+      file: docker-compose.yml
+      service: server
+    networks:
+      - apt-test-network
+
+  server-fake:
+    image: ${REPOSITORY_SERVER_FAKE}:${TAG_DEPLOY}
+    ports:
+      - 8033:80
+    networks:
+      apt-test-network:
+        aliases:
+          - next.json-generator.com
+    volumes:
+      - ./docker/server-fake/intercepted-route:/app/intercepted-route
+
+  mysql:
+    extends:
+      file: docker-compose.yml
+      service: mysql
+    networks:
+      - apt-test-network
+
+  test:
+    image: ${REPOSITORY_TEST}:${TAG_DEPLOY}
+    volumes:
+      - ./docker/node/e2e:/app/e2e
+    networks:
+      - apt-test-network
+    depends_on:
+       - mysql
+       - server
+       - server-fake
+    command: "/tmp/wait-for-it.sh mysql:3306 -t 50 -- npm test"
+
+networks:
+  apt-test-network:
+    driver: bridge

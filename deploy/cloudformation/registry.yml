@@ -1,0 +1,26 @@
+Parameters:
+  RepositoryNameTest:
+    Description: Imagen con node jest
+    Type: String
+  RepositoryNameServer:
+    Description: Imagen con un node basico y rest
+    Type: String
+  RepositoryNameServerFake:
+    Description: Imagen para bloquear la salida hacia otras APIS
+    Type: String
+
+Resources:
+  RepositoryTest:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: !Ref RepositoryNameTest
+
+  RepositoryServer:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: !Ref RepositoryNameServer
+
+  RepositoryServerFake:
+    Type: AWS::ECR::Repository
+    Properties:
+      RepositoryName: !Ref RepositoryNameServerFake

@@ -1,0 +1,3 @@
+environment:
+  ENV: "lab"
+  DEPLOY_REGION: "ap-northeast-1"
