@@ -6,7 +6,7 @@ SERVICE_NAME 	= testrestfull
 
 ## RESULT_VARS ##
 ENV 			?= lab
-export TAG_DEPLOY = 1.7
+export TAG_DEPLOY = 1.8
 PROJECT_NAME      = $(OWNER)-$(ENV)-$(SERVICE_NAME)
 export REPOSITORY_TEST = $(PROJECT_NAME)-test
 export REPOSITORY_SERVER = $(PROJECT_NAME)-server
