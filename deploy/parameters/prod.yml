@@ -1,0 +1,3 @@
+environment:
+  ENV: "prod"
+  DEPLOY_REGION: "us-east-1"
