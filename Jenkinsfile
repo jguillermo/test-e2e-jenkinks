@@ -52,6 +52,11 @@ pipeline {
         sh 'make test-restart'
       }
     }
+    stage('view network') {
+      steps {
+        sh 'make test-network'
+      }
+    }
     stage('Deploy') {
       steps {
         sh 'make aws-deploy'

@@ -23,9 +23,18 @@ test-restart: ## Test project
 
 test-down: ## Test project
 	docker-compose -f docker-compose.test.yml down
+	docker network prune -f
 
 test-ps: ## Test project
 	docker-compose -f docker-compose.test.yml ps
+
+test-network: ## Test project
+	docker --version
+	docker-compose --version
+	docker exec test-server-api ping -c 2 next.json-generator.com
+	docker exec test-server-api ping -c 2 local.db.com
+	docker network ls
+	docker network inspect $$(docker network ls -q)
 
 build-test: ## build image node
 	docker build -t $(REPOSITORY_TEST):$(TAG_DEPLOY) ./docker/node

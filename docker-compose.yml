@@ -9,8 +9,5 @@ services:
   mysql:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: toor
-      MYSQL_USER : root
+      MYSQL_ROOT_PASSWORD: 1234
       MYSQL_DATABASE: dbproject
-    ports:
-      - 3359:3306

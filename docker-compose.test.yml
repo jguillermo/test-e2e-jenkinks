@@ -5,15 +5,15 @@ services:
     extends:
       file: docker-compose.yml
       service: server
-    networks:
-      - apt-test-network
+    container_name: test-server-api
 
   server-fake:
     image: ${REPOSITORY_SERVER_FAKE}:${TAG_DEPLOY}
     ports:
       - 8033:80
+    container_name: test-server-fake
     networks:
-      apt-test-network:
+      default:
         aliases:
           - next.json-generator.com
     volumes:
@@ -23,21 +23,18 @@ services:
     extends:
       file: docker-compose.yml
       service: mysql
+    container_name: test-mysql
     networks:
-      - apt-test-network
+      default:
+        aliases:
+          - local.db.com
 
   test:
     image: ${REPOSITORY_TEST}:${TAG_DEPLOY}
     volumes:
       - ./docker/node/e2e:/app/e2e
-    networks:
-      - apt-test-network
     depends_on:
        - mysql
        - server
        - server-fake
-    command: "/tmp/wait-for-it.sh mysql:3306 -t 50 -- npm test"
-
-networks:
-  apt-test-network:
-    driver: bridge
+    command: "/tmp/wait-for-it.sh local.db.com:3306 -t 50 -- npm test"

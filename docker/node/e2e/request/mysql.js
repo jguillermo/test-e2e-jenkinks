@@ -22,7 +22,11 @@ function query(sql) {
     return new Promise(function (resolve, reject){
         let  conection = getConnection();
         conection.query(sql, function (error, results, fields) {
-            if (error) reject(error);
+            if (error) {
+                console.log('env.DATABASE',process.env.DATABASE,'conection',conection.config,'**error**',error,'**throw error**');
+                throw error;
+                reject(error);
+            }
             conection.destroy();
             resolve(results);
         });
