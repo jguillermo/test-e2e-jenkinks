@@ -37,4 +37,4 @@ services:
        - mysql
        - server
        - server-fake
-    command: "/tmp/wait-for-it.sh local.db.com:3306 -t 50 -- npm test"
+    command: "/tmp/wait-for-it.sh local.db.com:3306 -t 50 -- /app/runtest.sh"

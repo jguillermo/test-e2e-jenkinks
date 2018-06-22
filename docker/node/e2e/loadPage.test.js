@@ -3,7 +3,7 @@ const mysql = require('@mysql');
 
 describe('Load Page', () => {
 
-    test('leer la base de datos', async () => {
+    test.skip('leer la base de datos', async () => {
 
         jest.setTimeout(60000);
 
